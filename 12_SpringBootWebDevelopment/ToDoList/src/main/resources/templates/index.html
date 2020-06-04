@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Список дел</title>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/tcal.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/tcal.css" rel="stylesheet">
+</head>
+<body>
+<div id="myDIV" class="header">
+    <h2 style="margin:5px">My To Do List</h2>
+    <form>
+        <input type="text" id="myInput" name="tasktext" placeholder="Title...">
+        <input type="text" id="myInputDate" name="date" class="tcal" value="" placeholder="До какого числа выполнить" onkeydown="return false"/>
+        <input type="text" name="status" value="false" hidden>
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </form>
+</div>
+<ul id="myUL">
+    <th:block  th:each="task : ${taskList}">
+        <li th:attr="id=${task.id}"
+            th:if="${task.isExpired()}" th:unless="${task.status}"
+            th:utext="${task}">
+
+        </li>
+        <li th:attr="id=${task.id} "
+            th:unless="${task.isExpired()}" th:style="'color:red'"
+            th:utext="${task} + ' (задание просрочено)'">
+
+        </li>
+        <li th:attr="id=${task.id} "
+            th:if="${task.status}" th:class="checked"
+            th:utext="${task}">
+
+        </li>
+    </th:block >
+</ul>
+</body>
+</html>

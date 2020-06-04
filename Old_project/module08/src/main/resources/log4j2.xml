@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <RollingFile name="Found" fileName="logs/Found.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}.log.gz">
+            <MarkerFilter marker="FOUND" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+
+        <RollingFile name="Wrong" fileName="logs/Wrong.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}.log.gz">
+            <MarkerFilter marker="WRONG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+
+        <RollingFile name="Error" fileName="logs/Error.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}.log.gz">
+            <MarkerFilter marker="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Found" level="info"/>
+            <AppenderRef ref="Wrong" level="warn"/>
+            <AppenderRef ref="Error" level="error"/>
+        </Root>
+    </Loggers>
+</Configuration>
